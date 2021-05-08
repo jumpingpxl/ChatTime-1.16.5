@@ -18,24 +18,21 @@ buildscript {
 plugins {
     id 'de.undercouch.download' version '4.0.0'
 }
+
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply plugin: 'org.spongepowered.mixin'
 
-version = '1.0.0'
-group = 'com.example' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'Example Addon'
+version = '3'
+group = 'de.jumpingpxl' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'ChatTime'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
-def mcpVersion = [channel: 'snapshot', version: '20201028-1.16.3']
+compileJava.options.encoding = 'UTF-8'
 
-mixin {
-    defaultObfuscationEnv searge
-    add sourceSets.main, "example.refmap.json"
-}
+def mcpVersion = [channel: 'snapshot', version: '20201028-1.16.3']
 
 minecraft {
     mappings mcpVersion
@@ -79,15 +76,12 @@ repositories {
 
 
 dependencies {
-    annotationProcessor("org.spongepowered:mixin:0.8.2:processor")
-
     minecraft 'com.github.ImpactDevelopment:Vanilla:1.16.5'
     compile(files('libs/lm_api_mc1.16.5.jar'))
 
     compile("org.ow2.asm:asm-analysis:6.2") { transitive = false }
     compile("org.ow2.asm:asm-util:6.2") { transitive = false }
     compile("org.ow2.asm:asm-commons:6.2") { transitive = false }
-    compile("org.spongepowered:mixin:0.8.2") { transitive = false }
     compile("net.minecraft:launchwrapper:1.12") { transitive = false }
 }
 
