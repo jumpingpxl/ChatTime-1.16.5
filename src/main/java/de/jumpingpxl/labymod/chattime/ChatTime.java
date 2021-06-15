@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ChatTime extends LabyModAddon {
 
-	private static final String VERSION = "3";
+	private static final String VERSION = "4";
 
 	private Settings settings;
 
