@@ -23,8 +23,16 @@ public class FormatScreen extends OverlayScreen<String[]> {
 			"Second in minute (00-59)"), new FormatPlaceholder("a", "Time of day (AM or PM)")},
 			{new FormatPlaceholder("yyyy", "Year"), new FormatPlaceholder("MM",
 					"Month in year as number (01-12)"), new FormatPlaceholder("MMMM",
-					"Month in year as name"), new FormatPlaceholder("dd", "Day in month"),
+					"Month in year as name"), new FormatPlaceholder("dd", "Day in month (01-31)"),
 					new FormatPlaceholder("EE", "Day in week")}};
+	private static final String PRESET_TITLE = "§eFormatting Presets";
+	private static final String CUSTOM_FORMAT_TITLE = "§eChange Custom Format";
+	private static final String SYNTAX_TITLE = "§eUseful Syntaxes";
+	private static final String INFO_TEXT = "?";
+	private static final String[] INFO_HOVER_TEXT = {"§6Middle-Click on a Preset to",
+			"§6Insert the Format Into the", "§6Custom Format Text Field.", "",
+			"§cThe Custom Format Won't", "§cChange Until You Edit Something",
+			"§cInside the Text Field" + "."};
 
 	private final Map<Format, FormatButton> formatButtons;
 	private final Set<PlaceholderButton> placeholderButtons;
@@ -125,17 +133,17 @@ public class FormatScreen extends OverlayScreen<String[]> {
 	@Override
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
-		getDrawUtils().drawCenteredString(matrixStack, "§eFormatting Presets", centerX, y + 18D, 0.7D);
+		getDrawUtils().drawCenteredString(matrixStack, PRESET_TITLE, centerX, y + 18D, 0.7D);
 		for (FormatButton formatButton : formatButtons.values()) {
 			formatButton.render(matrixStack, mouseX, mouseY);
 		}
 
-		getDrawUtils().drawCenteredString(matrixStack, "§eChange Custom Format", centerX,
+		getDrawUtils().drawCenteredString(matrixStack, CUSTOM_FORMAT_TITLE, centerX,
 				textField.getY() - 7D, 0.7D);
 		textField.render(matrixStack, mouseX, mouseY);
 
-		getDrawUtils().drawCenteredString(matrixStack, "§eUseful Syntaxes", centerX,
-				textField.getY() + 25D, 0.7D);
+		getDrawUtils().drawCenteredString(matrixStack, SYNTAX_TITLE, centerX, textField.getY() + 25D,
+				0.7D);
 
 		PlaceholderButton hoveredButton = null;
 		for (PlaceholderButton placeholderButton : placeholderButtons) {
@@ -215,13 +223,10 @@ public class FormatScreen extends OverlayScreen<String[]> {
 		boolean mouseOver = mouseX >= infoX - 2 && mouseX <= infoMaxX + 2 && mouseY >= infoY - 2
 				&& mouseY <= infoMaxY + 2;
 		if (mouseOver) {
-			getDrawUtils().drawCenteredString(matrixStack, "?", infoX + 5D, infoY - 2D, 2.0);
-			getDrawUtils().drawHoveringText(matrixStack, mouseX, mouseY,
-					"§6Click With Your Middle " + "Mouse", "§6Button on a Preset to Insert",
-					"§6the Format in the Custom", "§6Format TextField.", "", "§cThe Custom Format Won't be",
-					"§cChanged Until After You Edit", "§cthe TextField!");
+			getDrawUtils().drawCenteredString(matrixStack, INFO_TEXT, infoX + 5D, infoY - 2D, 2.0);
+			getDrawUtils().drawHoveringText(matrixStack, mouseX, mouseY, INFO_HOVER_TEXT);
 		} else {
-			getDrawUtils().drawCenteredString(matrixStack, "?", infoX + 5D, infoY, 1.5);
+			getDrawUtils().drawCenteredString(matrixStack, INFO_TEXT, infoX + 5D, infoY, 1.5);
 		}
 	}
 }
