@@ -112,7 +112,7 @@ public class TextField {
 	public void mouseScrolled(int delta) {
 		if (focused) {
 			if (Screen.hasControlDown()) {
-				setCursorIndex(delta > 0 ? text.length() : 0);
+				setCursorIndex(delta < 0 ? text.length() : 0);
 			} else {
 				moveCursorBy(-delta);
 			}
