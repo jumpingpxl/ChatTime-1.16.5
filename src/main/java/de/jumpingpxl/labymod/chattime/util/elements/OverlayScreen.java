@@ -15,6 +15,9 @@ public abstract class OverlayScreen<T> extends Screen {
 
 	protected static final int BACKGROUND_COLOR = ModColor.toRGB(0, 0, 0, 128);
 	private static final DrawUtils DRAW_UTILS = LabyMod.getInstance().getDrawUtils();
+	private static final String DONE_BUTTON = "§aDone";
+	private static final String CANCEL_BUTTON = "§cCancel";
+
 	private final String title;
 	private final Screen backgroundScreen;
 	private final Consumer<T> callback;
@@ -61,11 +64,11 @@ public abstract class OverlayScreen<T> extends Screen {
 
 		int buttonLength = defaultMaxX - 7;
 		cancelButton = new Button(centerX + 2, maxY - 25, buttonLength, 20,
-				new StringTextComponent("§cCancel"),
+				new StringTextComponent(CANCEL_BUTTON),
 				onPress -> minecraft.displayGuiScreen(backgroundScreen));
 
 		Button doneButton = new Button(x + 5, maxY - 25, buttonLength, 20,
-				new StringTextComponent("§aDone"), onPress -> {
+				new StringTextComponent(DONE_BUTTON), onPress -> {
 			onDoneClick();
 			cancelButton.onPress();
 		});

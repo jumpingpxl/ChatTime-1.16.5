@@ -18,6 +18,9 @@ public class StyleScreen extends OverlayScreen<String> {
 
 	private static final String[] PLACEHOLDERS = {"0123456789", "abcdef", "mnor"};
 	private static final String TIME_PLACEHOLDER = "%time%";
+	private static final String STYLE_TITLE = "§eChange Style";
+	private static final String USEFUL_TITLE = "§eUseful";
+	private static final String PREVIEW_TITLE = "§ePreview";
 
 	private final Settings settings;
 	private final Set<PlaceholderButton> placeholderButtons;
@@ -82,15 +85,15 @@ public class StyleScreen extends OverlayScreen<String> {
 	@Override
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
-		getDrawUtils().drawCenteredString(matrixStack, "§eChange Style", centerX, y + 18D, 0.7D);
+		getDrawUtils().drawCenteredString(matrixStack, STYLE_TITLE, centerX, y + 18D, 0.7D);
 		textField.render(matrixStack, mouseX, mouseY);
 
-		getDrawUtils().drawCenteredString(matrixStack, "§eUseful", centerX, y + 48D, 0.7D);
+		getDrawUtils().drawCenteredString(matrixStack, USEFUL_TITLE, centerX, y + 48D, 0.7D);
 		for (PlaceholderButton placeholder : placeholderButtons) {
 			placeholder.render(matrixStack, mouseX, mouseY);
 		}
 
-		getDrawUtils().drawCenteredString(matrixStack, "§ePreview", centerX, maxY - 57D, 0.7D);
+		getDrawUtils().drawCenteredString(matrixStack, PREVIEW_TITLE, centerX, maxY - 57D, 0.7D);
 		fill(matrixStack, centerX - 98, maxY - 50, centerX + 98, maxY - 30, BACKGROUND_COLOR);
 		getDrawUtils().drawRect(matrixStack, centerX - 98.5D, maxY - 50.5D, centerX + 98.5D,
 				maxY - 50D,
