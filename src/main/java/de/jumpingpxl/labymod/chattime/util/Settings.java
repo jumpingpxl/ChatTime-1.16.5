@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 import de.jumpingpxl.labymod.chattime.ChatTime;
 import de.jumpingpxl.labymod.chattime.util.elements.BetterBooleanElement;
+import de.jumpingpxl.labymod.chattime.util.elements.SpacerElement;
 import de.jumpingpxl.labymod.chattime.util.elements.formatting.Format;
 import de.jumpingpxl.labymod.chattime.util.elements.formatting.FormatElement;
 import de.jumpingpxl.labymod.chattime.util.elements.style.StyleElement;
@@ -84,6 +85,7 @@ public class Settings {
 							saveConfig();
 						}, enabledChatTime));
 
+		settingsElements.add(new SpacerElement());
 		settingsElements.add(new StyleElement(this, "§6Style", Material.MAP, rawStyle, string -> {
 			this.rawStyle = string;
 			this.style = fromString(string);
@@ -103,8 +105,9 @@ public class Settings {
 							saveConfig();
 						}));
 
+		settingsElements.add(new SpacerElement());
 		settingsElements.add(
-				new BetterBooleanElement("§6Before Message", new ControlElement.IconData(Material.LEVER),
+				new BetterBooleanElement("§6Time as Prefix", new ControlElement.IconData(Material.LEVER),
 						enabled -> {
 							beforeMessage = enabled;
 							getConfig().addProperty("before", enabled);
@@ -112,7 +115,50 @@ public class Settings {
 						}, beforeMessage));
 	}
 
-	public StringTextComponent fromString(String string) {
+	public String getFormattedString(String string) {
+		char[] array = string.toCharArray();
+		for (int i = 0; i < array.length - 1; i++) {
+			if (array[i] == '&' && "0123456789AaBbCcDdEeFfLlMmNnOoRr".indexOf(array[i + 1]) > -1) {
+				array[i] = '§';
+				array[i + 1] = Character.toLowerCase(array[i + 1]);
+			}
+		}
+		return new String(array);
+	}
+
+	public Format getFormat() {
+		return format;
+	}
+
+	public String getCustomFormat() {
+		return customFormat;
+	}
+
+	public SimpleDateFormat getDateFormat() {
+		return dateFormat;
+	}
+
+	public StringTextComponent getStyle() {
+		return style;
+	}
+
+	public boolean isEnabledChatTime() {
+		return enabledChatTime;
+	}
+
+	public boolean isBeforeMessage() {
+		return beforeMessage;
+	}
+
+	private JsonObject getConfig() {
+		return chatTime.getConfig();
+	}
+
+	private void saveConfig() {
+		chatTime.saveConfig();
+	}
+
+	private StringTextComponent fromString(String string) {
 		StringTextComponent textComponent = new StringTextComponent("");
 		try {
 			StringBuilder stringBuilder = new StringBuilder();
@@ -171,48 +217,5 @@ public class Settings {
 
 		sibling.setStyle(style);
 		parent.append(sibling);
-	}
-
-	public String getFormattedString(String string) {
-		char[] array = string.toCharArray();
-		for (int i = 0; i < array.length - 1; i++) {
-			if (array[i] == '&' && "0123456789AaBbCcDdEeFfLlMmNnOoRr".indexOf(array[i + 1]) > -1) {
-				array[i] = '§';
-				array[i + 1] = Character.toLowerCase(array[i + 1]);
-			}
-		}
-		return new String(array);
-	}
-
-	public Format getFormat() {
-		return format;
-	}
-
-	public String getCustomFormat() {
-		return customFormat;
-	}
-
-	public SimpleDateFormat getDateFormat() {
-		return dateFormat;
-	}
-
-	public StringTextComponent getStyle() {
-		return style;
-	}
-
-	public boolean isEnabledChatTime() {
-		return enabledChatTime;
-	}
-
-	public boolean isBeforeMessage() {
-		return beforeMessage;
-	}
-
-	private JsonObject getConfig() {
-		return chatTime.getConfig();
-	}
-
-	private void saveConfig() {
-		chatTime.saveConfig();
 	}
 }
