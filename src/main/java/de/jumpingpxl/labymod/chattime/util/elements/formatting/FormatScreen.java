@@ -31,8 +31,8 @@ public class FormatScreen extends OverlayScreen<String[]> {
 	private static final String INFO_TEXT = "?";
 	private static final String[] INFO_HOVER_TEXT = {"§6Middle-Click on a Preset to",
 			"§6Insert the Format Into the", "§6Custom Format Text Field.", "",
-			"§cThe Custom Format Won't", "§cChange Until You Edit Something",
-			"§cInside the Text Field" + "."};
+			"§cThe Custom Format Won't", "§cChange Until You Edit Something", "§cInside the Text Field"
+			+ "."};
 
 	private final Map<Format, FormatButton> formatButtons;
 	private final Set<PlaceholderButton> placeholderButtons;

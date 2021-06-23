@@ -114,10 +114,10 @@ public class TextField {
 			if (Screen.hasControlDown()) {
 				setCursorIndex(delta > 0 ? text.length() : 0);
 			} else {
-				moveCursorBy(delta);
+				moveCursorBy(-delta);
 			}
 
-			moveMarkerBy(delta);
+			moveMarkerBy(-delta);
 		}
 	}
 
