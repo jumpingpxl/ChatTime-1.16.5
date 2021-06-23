@@ -105,7 +105,6 @@ public class Settings {
 							saveConfig();
 						}));
 
-		settingsElements.add(new SpacerElement());
 		settingsElements.add(
 				new BetterBooleanElement("§6Time as Prefix", new ControlElement.IconData(Material.LEVER),
 						enabled -> {
